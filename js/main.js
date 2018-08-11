@@ -31,25 +31,29 @@ var createBoard = function () {
 		var cardElement = document.createElement('img');	
 		cardElement.setAttribute('src', 'images/back.png');
 		cardElement.setAttribute('data-id', i);
-		cardElement.addEventListener('click', flipCard);
+		cardElement.addEventListener('click', function() {
+			flipCard(this);
+		});
 		document.getElementById('game-board').appendChild(cardElement);
 	}
 }
 
-var flipCard = function () {
-	var cardId = this.getAttribute('data-id');
+var flipCard = function (elem) {
+	var cardId = elem.getAttribute('data-id');
 	console.log("User flipped " + cards[cardId].rank);
 	console.log(cards[cardId].cardImage);
 	console.log(cards[cardId].suit);
 	cardsInPlay.push(cards[cardId].rank);
-	this.setAttribute(cards[cardId].cardImage);
+
+	elem.setAttribute('src', cards[cardId].cardImage);
+
 	if (cardsInPlay.length === 2) {
-		checkForMatch();
+		checkForMatch(elem, cardId);
 	}
 }
 
-var checkForMatch = function() {
-	this.setAttribute(cards[cardId].cardImage);
+var checkForMatch = function (elem, cardId) {
+	elem.setAttribute('src', cards[cardId].cardImage);
 		if (cardsInPlay[0] === cardsInPlay[1])	{
 			alert("You've found a match!");
 		} else {
